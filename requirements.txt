@@ -1,0 +1,6 @@
+customtkinter
+pandas
+openpyxl
+matplotlib
+pillow
+pyinstaller

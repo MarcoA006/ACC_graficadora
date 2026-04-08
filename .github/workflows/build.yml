@@ -1,0 +1,31 @@
+name: Compilar EXE para Windows
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Descargar código del repositorio
+      uses: actions/checkout@v4
+      
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Instalar dependencias
+      run: pip install -r requirements.txt
+      
+    - name: Compilar con PyInstaller
+      run: pyinstaller --noconsole --onefile --icon="Logo.ico" --collect-all customtkinter "ACC Graficadora.py"
+      
+    - name: Subir el EXE generado
+      uses: actions/upload-artifact@v4
+      with:
+        name: Dashboard-Ventas-ATT
+        path: dist/ACC Graficadora.exe
